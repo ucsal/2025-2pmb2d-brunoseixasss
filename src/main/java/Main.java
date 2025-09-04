@@ -1,10 +1,11 @@
-import br.com.mariojp.solid.dip.*;
+import br.com.mariojp.solid.dip.EmailNotifier;
+import br.com.mariojp.solid.dip.SmtpClient;
+import br.com.mariojp.solid.dip.User;
 
 public class Main {
 	public static void main(String[] args) {
-		System.setProperty("DRY_RUN", "true"); // desejável não chamar SMTP
-		var notifier = new EmailNotifier();
-		// Estado inicial: vai lançar IllegalStateException (SMTP indisponível)
+		System.setProperty("SMTP_AVAILABLE", "true");
+		var notifier = new EmailNotifier(new SmtpClient());
 		notifier.welcome(new User("Ana", "ana@example.com"));
 		System.out.println("Email enviado!");
 	}
